@@ -1,0 +1,14 @@
+{
+    "Paths": [
+        { "Path": "./src" },
+        { "Path": "./src/Save" },
+        { "Path": "./docs" },
+        { "Path": "./src/misc" },
+        { "Path": "./src/Motion" }
+    ],
+    "Save": [{
+        "VariableName": "Frame",
+        "Path": "./Outputs/Test Frame Extract.csv",
+        "Type": "Matrix"
+    }]
+}

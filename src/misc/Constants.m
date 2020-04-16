@@ -5,8 +5,11 @@ classdef Constants
         Y = 1;
         Cb = 2;
         Cr = 3;
+        RefNum = 6;
+        BlockSize = 8;
         MacroBSize = 16; % Macroblock
         SWSize = 32; % Search Window
+        GOPSize = 5;
 
         % Searchwindow check variables
         TopLeft = 1; 

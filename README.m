@@ -10,24 +10,18 @@ Setup
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Problem 1: Reading a Video file in MATLAB
-% Implementation 1: aviread()
 % M-file name: src\GetVideo.m
-% Usage: NA
-% Location of output image: .\Ouptuts\
-% Parameters: NA
-% Other parameters here
+% Notes: 
+%   - This gets the video and puts it inside a variable
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 GetVideo
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Problem 2: Motion Estimation and Reconstruction
-% Implementation 1: 
-% M-file name: src\MotionEstimation.m
-% Usage: NA
-% Location of output image: .\Ouptuts\
-% Parameters: NA
-% Other parameters here
+% Problem 1: Reading a Video file in MATLAB
+% M-file name: src\GetVideo.m
+% Notes: 
+%   - This gets the video and puts it inside a variable
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 MotionEstimation

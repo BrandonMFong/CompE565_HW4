@@ -10,76 +10,16 @@
 % For this we take two frames and compare them to get calculate motion vector
 % As recommended, will rough out just two frames then expand alg
 
-
-RefFrame = GetYFrameFromVid(6);   %I frame
 const = Constants();
-for i = 7:1:10
+RefFrame = GetYFrameFromVid(const.RefNum);   %I frame
+for Frame = const.RefNum+1:1:(const.RefNum+const.GOPSize-1)
     
-    CurrFrame = GetYFrameFromVid(i);  %P frame
+    CurrFrame = GetYFrameFromVid(Frame);  %P frame
 
+    % Get vectors 
     [vectorX, vectorY, error] = Search(RefFrame,CurrFrame);
 
-    [X, Y] = meshgrid(1:11, 1:9);
-    
-    %Display Error Frame
-    figure,imshow(error);
-    title(['Error [Frame ', num2str(i),']']);
-    
-    
-    %Display Motion Vectors
-    figure();
-    quiver(X, Y, vectorX(:,:), vectorY(:,:));
-    title(['Motion Vector [Frame ', num2str(i),']']);
-    
-    %Adding motion vectors
-    [row, column] = size(RefFrame);
-    
-    vectImage = zeros([row, column]);
-    [vecrowx,veccolx] = size(vectorX);
-    [vecrowy,veccoly] = size(vectorY);
-    
-    j = 1;
-    for n = 1:const.MacroBSize:row+1
-        
-        k = 1;
-        for m = 1:const.MacroBSize:column+1
-            if(veccolx < k) || (veccoly < k) || (vecrowx < j) || (vecrowy < j) % I tried to fill in the black spots but still doesn't work.  If I had more time I would figure this out
-                break;
-            end
-            indexRow = n + vectorX(j, k);
-            indexCol = m + vectorY(j, k);
-            
-            endRow = 15;
-            endCol = 15;
-            
-            if((endRow + indexRow) > row)
-                endRow = (endRow + indexRow) - row;
-            end
-            
-            if((endCol + indexCol) > column)
-                endCol = (endCol + indexCol) - column;
-            end
-            
-            block = zeros(16);
-            
-            block(1:1+endRow,1:1+endCol) = RefFrame(n:n+endRow, m:m+endCol);
-            
-            vectImage(n:n+15, m:m+15) = block(:,:); 
-            
-            k = k + 1;
-        end
-        j = j + 1;
-    end
-    
-    
-    figure,imshow(uint8(vectImage));
-    title(['Vector Y [Frame ', num2str(i),']']);
-    
     %Reconstructing Image 
-    % The reconstructed image is obtained by adding the error image and
-    % motion vectors to the reference frame as described in 2.2.7
     reconImage = RefFrame + error;
-    figure,imshow(reconImage);
-    title(['Reconstructed Y [Frame ', num2str(i),']']);
     
 end

@@ -5,8 +5,8 @@
         "BlockSize": 8,
         "MacroBlockSize": 16,
         "SearchWindowSize": 32,
-        "GOPSize": 5
-
+        "GOPSize": 5,
+        "SliceSize": 1
     },
     "Paths": [
         { "Path": "./src" },

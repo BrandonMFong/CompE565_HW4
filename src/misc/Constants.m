@@ -10,6 +10,7 @@ classdef Constants
         MacroBSize; % Macroblock
         SWSize; % Search Window
         GOPSize;
+        SliceSize;
 
         % Searchwindow check variables
         TopLeft = 1; 
@@ -31,6 +32,7 @@ classdef Constants
             obj.MacroBSize = var.ConstantDefinitions.MacroBlockSize;
             obj.SWSize = var.ConstantDefinitions.SearchWindowSize;
             obj.GOPSize = var.ConstantDefinitions.GOPSize;
+            obj.SliceSize = var.ConstantDefinitions.SliceSize;
         end
     end
 end

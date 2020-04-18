@@ -1,14 +1,33 @@
 {
+    "ConstantDefinitions": {
+
+        "ReferenceFrameNumber": 6,
+        "BlockSize": 8,
+        "MacroBlockSize": 16,
+        "SearchWindowSize": 32,
+        "GOPSize": 5
+
+    },
     "Paths": [
         { "Path": "./src" },
-        { "Path": "./src/Save" },
-        { "Path": "./docs" },
+        { "Path": "./quantizationmatrices" },
+        { "Path": "./src/DCT" },
         { "Path": "./src/misc" },
-        { "Path": "./src/Motion" }
+        { "Path": "./src/Motion" },
+        { "Path": "./src/Quantization" },
+        { "Path": "./src/Reconstruct" },
+        { "Path": "./src/Save" },
+        { "Path": "./docs" }
     ],
     "Save": [{
-        "VariableName": "Frame",
-        "Path": "./Outputs/Test Frame Extract.csv",
-        "Type": "Matrix"
-    }]
+            "VariableName": "RefFrame_rbg",
+            "Path": "./Outputs/Ref Image rgb Extract.jpg",
+            "Type": "Image"
+        },
+        {
+            "VariableName": "RefFrame_ycbcr",
+            "Path": "./Outputs/Ref Image ycbcr Extract.jpg",
+            "Type": "Image"
+        }
+    ]
 }

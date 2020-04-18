@@ -15,16 +15,6 @@ Setup
 %   - This gets the video and puts it inside a variable
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-GetVideo
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Problem 1: Reading a Video file in MATLAB
-% M-file name: src\GetVideo.m
-% Notes: 
-%   - This gets the video and puts it inside a variable
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-MotionEstimation
-
+Codec
 
 SaveOutputs

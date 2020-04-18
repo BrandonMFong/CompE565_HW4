@@ -22,6 +22,8 @@ for i = 1:size(savevar.Save,1)
         catch exception
             throw(exception)
         end
+
+    % Image is .jpg file
     elseif savevar.Save(i).Type == "Image"
         eval(['val = ',savevar.Save(i).VariableName,';']);
         imwrite(val,savevar.Save(i).Path);

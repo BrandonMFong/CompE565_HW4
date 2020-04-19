@@ -32,23 +32,9 @@ function [rowPoints, colPoints, errorFrame] = Search(RefFrame, CurrFrame)
             [MV, blockError] = getMVCoordinates(CurrFrame(MinRow:MaxRow, MinCol:MaxCol), uint8(GetSearchWindow(RefFrame,MaxRow,MinRow,MaxCol,MinCol)));
 
             errorFrame(MinRow:MinRow+15, MinCol:MinCol+15) = blockError(:,:);
-            
-            %Adjusting coordinate for top and left edge cases (for 32x32 seach windows only)
-%             if(MinRow == 1)
-%                 rowPoints(n, m) = MV(1) - 8;
-%             else
-%                 rowPoints(n, m) = MV(1);
-%             end
-%             
-%             if(MinCol == 1)  
-%                 colPoints(n, m) = MV(2) - 8;
-%             else
-%                 colPoints(n, m) = MV(2);
-%             end
-
-           %when search widows can be 24x24, 24x32, 32x24, 32x32
-           rowPoints(n, m) = MV(1);
-           colPoints(n, m) = MV(2);
+            %when search widows can be 24x24, 24x32, 32x24, 32x32
+            rowPoints(n, m) = MV(1);
+            colPoints(n, m) = MV(2);
 
            m = m + 1; 
             

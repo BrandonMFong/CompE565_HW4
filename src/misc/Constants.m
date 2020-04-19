@@ -5,6 +5,8 @@ classdef Constants
         Y = 1
         Cb = 2;
         Cr = 3;
+        SubCb = 1;
+        SubCr = 2;
         RefNum;
         BlockSize;
         MacroBSize; % Macroblock

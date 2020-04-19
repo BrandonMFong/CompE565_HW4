@@ -1,4 +1,4 @@
-function [rowPoints, colPoints, errorFrame] = Search(RefFrame, CurrFrame)
+function [rowPoints, colPoints, errorFrame] = GetErrAndMV(RefFrame, CurrFrame)
     const = Constants();
     [MaxRefRowBound, MaxRefColBound] = size(RefFrame);
     [MaxCurrRowBound, MaxCurrColBound] = size(CurrFrame);
@@ -25,14 +25,19 @@ function [rowPoints, colPoints, errorFrame] = Search(RefFrame, CurrFrame)
         for MinCol = 1:const.MacroBSize:MaxRefColBound
             if (MaxCol > MaxRefColBound) 
                 MaxCol = const.MacroBSize; 
+                if(MaxCol < MinCol)
+                    % Here I'm disregarding the left over 7 column indexes
+                    % This only happens when I'm passing Cb/Cr frames
+                    break;
+                end
             end 
 
             % targetBlock = CurrFrame(MinRow:MaxRow, MinCol:MaxCol)
             % GetSearchWindow(Frame,RowMax,RowMin,ColumnMax,ColumnMin)
             [MV, blockError] = getMVCoordinates(CurrFrame(MinRow:MaxRow, MinCol:MaxCol), uint8(GetSearchWindow(RefFrame,MaxRow,MinRow,MaxCol,MinCol)));
 
-            errorFrame(MinRow:MinRow+15, MinCol:MinCol+15) = blockError(:,:);
-            %when search widows can be 24x24, 24x32, 32x24, 32x32
+            errorFrame(MinRow:MinRow+(const.MacroBSize-1), MinCol:MinCol+(const.MacroBSize-1)) = blockError(:,:);
+            % when search widows can be 24x24, 24x32, 32x24, 32x32
             rowPoints(n, m) = MV(1);
             colPoints(n, m) = MV(2);
 

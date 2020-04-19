@@ -8,10 +8,10 @@ function [mv, error] = getMVCoordinates(targetBlock, searchWindow)
     for x = 1:width-15
         for y = 1:height-15
             
-            candicateBlock = searchWindow(x:x+const.BlockSize-1, y:y+const.BlockSize-1);
+            candicateBlock = searchWindow(x:x+const.MacroBSize-1, y:y+const.MacroBSize-1);
             
             % Get the absolute difference of the target and candidate block
-            difference = imabsdiff(targetBlock,candicateBlock);
+            difference = imabsdiff(targetBlock,candicateBlock); % Refer to 2.2.5
             SAD = sum(difference(:));
             
             if(SAD < bestMatch)

@@ -1,4 +1,5 @@
-function out = GetCbCrSS(Frame)
+function [CBsubsample, CRsubsample] = GetCbCrSS(Frame)
     const = Constants();
-    out = Frame(1:2:end,1:2:end,const.Cb:const.Cr);  
+    CBsubsample = Frame(1:2:end,1:2:end,const.Cb);  
+    CRsubsample = Frame(1:2:end,1:2:end,const.Cr);  
 end

@@ -6,7 +6,8 @@
         "MacroBlockSize": 16,
         "SearchWindowSize": 32,
         "GOPSize": 5,
-        "SliceSize": 1
+        "SliceSize": 1,
+        "MatrixFile": "StandardQuantizeMatrix.csv"
     },
     "Paths": [
         { "Path": "./src" },

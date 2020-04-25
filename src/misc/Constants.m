@@ -14,6 +14,9 @@ classdef Constants
         GOPSize;
         SliceSize;
 
+        % Matrix
+        QuantizationMatrix;
+
         % Searchwindow check variables
         TopLeft = 1; 
         BottomLeft = 2; 
@@ -35,6 +38,7 @@ classdef Constants
             obj.SWSize = var.ConstantDefinitions.SearchWindowSize;
             obj.GOPSize = var.ConstantDefinitions.GOPSize;
             obj.SliceSize = var.ConstantDefinitions.SliceSize;
+            obj.QuantizationMatrix = csvread(var.ConstantDefinitions.MatrixFile);
         end
     end
 end

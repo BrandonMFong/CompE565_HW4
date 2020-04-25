@@ -5,32 +5,53 @@ VideoVar = GetVideo();
 
 %%% Get Frame %%%
 [RefFrame_rbg, RefFrame_ycbcr] = GetFramesFromVid(const.RefNum); % Find imgages in output folder
-RefFrame_cbcr_SS = GetCbCrSS(RefFrame_ycbcr);
+[RefFrame_CBSS, RefFrame_CRSS] = GetCbCrSS(RefFrame_ycbcr);
 
 % Get frame by frame 
 % Using a slice size of one just for simplicity
 for index = const.RefNum+1:(const.RefNum + (const.GOPSize-1))
 
     %%% Get Frame %%%
-    [CurrFrame_rbg, CurrFrame_ycbcr] = GetFramesFromVid(6); % Find imgages in output folder
+    [CurrFrame_rbg, CurrFrame_ycbcr] = GetFramesFromVid(index); % Find imgages in output folder
     
-    %%% SubSample %%%
+    %%% Partition & SubSample %%%
     CurrFrame_y = CurrFrame_ycbcr(:,:,const.Y);
-    CurrFrame_cbcr_SS = GetCbCrSS(CurrFrame_ycbcr);
+    [CurrFrame_CBSS, CurrFrame_CRSS] = GetCbCrSS(CurrFrame_ycbcr);
     
     %%% Motion Estimation %%%
+    [Y_vectorX, Y_vectorY, Y_DiffFrame] = GetErrAndMV(RefFrame_ycbcr(:,:,const.Y),CurrFrame_y);
+
     % Do I need to care for Cb/Cr?
-    [Y_vectorX, Y_vectorY, Y_error] = GetErrAndMV(RefFrame_ycbcr(:,:,const.Y),CurrFrame_y);
-    [Cb_vectorX, Cb_vectorY, Cb_error] = GetErrAndMV(RefFrame_cbcr_SS(:,:,const.SubCb),CurrFrame_cbcr_SS(:,:,const.SubCb));
-    [Cr_vectorX, Cr_vectorY, Cr_error] = GetErrAndMV(RefFrame_cbcr_SS(:,:,const.SubCr),CurrFrame_cbcr_SS(:,:,const.SubCr));
+    % [Cb_vectorX, Cb_vectorY, Cb_error] = GetErrAndMV(RefFrame_CBSS,CurrFrame_CBSS);
+    % [Cr_vectorX, Cr_vectorY, Cr_error] = GetErrAndMV(RefFrame_CRSS,CurrFrame_CRSS);
     
     %%% DCT %%% 
+    DCT_Y = GetDCT(Y_DiffFrame,GetVarName(Y_DiffFrame));
+
+    DCT_Cb = double(CurrFrame_CBSS); DCT_Cr = double(CurrFrame_CBSS);
+    DCT_Cb = GetDCT(CurrFrame_CBSS,GetVarName(CurrFrame_CBSS));
+    DCT_Cr = GetDCT(CurrFrame_CRSS,GetVarName(CurrFrame_CRSS));
 
     %%% Quantize %%%
+    QDCT_Y = Quantize(DCT_Y,const.QuantizationMatrix,GetVarName(DCT_Y));
+
+    QDCT_Cb = DCT_Cb; QDCT_Cr = DCT_Cr;
+    QDCT_Cb = Quantize(DCT_Cb,const.QuantizationMatrix,GetVarName(DCT_Cb));
+    QDCT_Cr = Quantize(DCT_Cr,const.QuantizationMatrix,GetVarName(DCT_Cr));
 
     %%% Inverse Quantize %%%
+    IQuantized_QDCT_Y = IQuantize(QDCT_Y, const.QuantizationMatrix,GetVarName(QDCT_Y));
+
+    IQuantized_QDCT_Cb = QDCT_Cb; IQuantized_QDCT_Cr = QDCT_Cr;
+    IQuantized_QDCT_Cb = IQuantize(QDCT_Cb, const.QuantizationMatrix,GetVarName(QDCT_Cb));
+    IQuantized_QDCT_Cr = IQuantize(QDCT_Cr, const.QuantizationMatrix,GetVarName(QDCT_Cr));
 
     %%% Inverse DCT %%%
+    Inverse_QDCT_Y = GetInvDCT(IQuantized_QDCT_Y,GetVarName(IQuantized_QDCT_Y));
+
+    Inverse_QDCT_Cb = IQuantized_QDCT_Cb; Inverse_QDCT_Cr = IQuantized_QDCT_Cr;
+    Inverse_QDCT_Cb = GetInvDCT(IQuantized_QDCT_Cb,GetVarName(IQuantized_QDCT_Cb));
+    Inverse_QDCT_Cr = GetInvDCT(IQuantized_QDCT_Cr,GetVarName(IQuantized_QDCT_Cr));
      
     %%% 
     

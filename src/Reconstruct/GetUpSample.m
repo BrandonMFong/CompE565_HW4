@@ -22,8 +22,5 @@ function out = GetUpSample(luma,CbCr) % Replication
             end
         end
     end
-    Yn = Frame(:,:,const.Y);
-    Cbn = Frame(:,:,const.Cb);
-    Crn = Frame(:,:,const.Cr);
     out = uint8(Frame);
 end

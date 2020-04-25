@@ -26,33 +26,33 @@ for index = const.RefNum+1:(const.RefNum + (const.GOPSize-1))
     % [Cr_vectorX, Cr_vectorY, Cr_error] = GetErrAndMV(RefFrame_CRSS,CurrFrame_CRSS);
     
     %%% DCT %%% 
-    DCT_Y = GetDCT(Y_DiffFrame,GetVarName(Y_DiffFrame));
-
     DCT_Cb = double(CurrFrame_CBSS); DCT_Cr = double(CurrFrame_CBSS);
+    
+    DCT_Y = GetDCT(Y_DiffFrame,GetVarName(Y_DiffFrame));
     DCT_Cb = GetDCT(CurrFrame_CBSS,GetVarName(CurrFrame_CBSS));
     DCT_Cr = GetDCT(CurrFrame_CRSS,GetVarName(CurrFrame_CRSS));
 
     %%% Quantize %%%
-    QDCT_Y = Quantize(DCT_Y,const.QuantizationMatrix,GetVarName(DCT_Y));
-
     QDCT_Cb = DCT_Cb; QDCT_Cr = DCT_Cr;
+
+    QDCT_Y = Quantize(DCT_Y,const.QuantizationMatrix,GetVarName(DCT_Y));
     QDCT_Cb = Quantize(DCT_Cb,const.QuantizationMatrix,GetVarName(DCT_Cb));
     QDCT_Cr = Quantize(DCT_Cr,const.QuantizationMatrix,GetVarName(DCT_Cr));
 
     %%% Inverse Quantize %%%
-    IQuantized_QDCT_Y = IQuantize(QDCT_Y, const.QuantizationMatrix,GetVarName(QDCT_Y));
-
     IQuantized_QDCT_Cb = QDCT_Cb; IQuantized_QDCT_Cr = QDCT_Cr;
+
+    IQuantized_QDCT_Y = IQuantize(QDCT_Y, const.QuantizationMatrix,GetVarName(QDCT_Y));
     IQuantized_QDCT_Cb = IQuantize(QDCT_Cb, const.QuantizationMatrix,GetVarName(QDCT_Cb));
     IQuantized_QDCT_Cr = IQuantize(QDCT_Cr, const.QuantizationMatrix,GetVarName(QDCT_Cr));
 
     %%% Inverse DCT %%%
-    Inverse_QDCT_Y = GetInvDCT(IQuantized_QDCT_Y,GetVarName(IQuantized_QDCT_Y));
-
     Inverse_QDCT_Cb = IQuantized_QDCT_Cb; Inverse_QDCT_Cr = IQuantized_QDCT_Cr;
+
+    Inverse_QDCT_Y = GetInvDCT(IQuantized_QDCT_Y,GetVarName(IQuantized_QDCT_Y));
     Inverse_QDCT_Cb = GetInvDCT(IQuantized_QDCT_Cb,GetVarName(IQuantized_QDCT_Cb));
     Inverse_QDCT_Cr = GetInvDCT(IQuantized_QDCT_Cr,GetVarName(IQuantized_QDCT_Cr));
      
-    %%% 
-    
+    %%% Reconstruct predicted image %%%
+    OutFrame = GetReconstructedImg(Inverse_QDCT_Y,Inverse_QDCT_Cb,Inverse_QDCT_Cr);
 end

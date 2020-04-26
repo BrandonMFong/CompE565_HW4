@@ -1,3 +1,4 @@
 function out = GetVarName(var)
-    out = inputname(1);
+    varstring = inputname(1);
+    out = replace(varstring, '_', '\_');
 end

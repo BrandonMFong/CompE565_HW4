@@ -7,6 +7,8 @@ VideoVar = GetVideo();
 [RefFrame_rbg, RefFrame_ycbcr] = GetFramesFromVid(const.RefNum); % Find imgages in output folder
 [RefFrame_CBSS, RefFrame_CRSS] = GetCbCrSS(RefFrame_ycbcr);
 
+GroupOfFrames = cell(const.GOPSize - 1,1);
+
 % Get frame by frame 
 % Using a slice size of one just for simplicity
 for index = const.RefNum+1:(const.RefNum + (const.GOPSize-1))
@@ -54,5 +56,11 @@ for index = const.RefNum+1:(const.RefNum + (const.GOPSize-1))
     Inverse_QDCT_Cr = GetInvDCT(IQuantized_QDCT_Cr,GetVarName(IQuantized_QDCT_Cr));
      
     %%% Reconstruct predicted image %%%
-    OutFrame = GetReconstructedImg(Inverse_QDCT_Y,Inverse_QDCT_Cb,Inverse_QDCT_Cr);
+    FrameTemp = GetReconstructedImg(Inverse_QDCT_Y,Inverse_QDCT_Cb,Inverse_QDCT_Cr);
+    GroupOfFrames{index - const.RefNum} = ycbcr2rgb(FrameTemp);
+
+    %%% Display %%%
+    DisplayFrame(GroupOfFrames{index - const.RefNum});
+
+    % TODO the frame is still the error frame, add ref to error 
 end

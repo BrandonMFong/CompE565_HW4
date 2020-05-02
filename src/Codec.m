@@ -23,7 +23,17 @@ for index = const.RefNum+1:(const.RefNum + (const.GOPSize-1))
     %%% Motion Estimation %%%
     [Y_vectorX, Y_vectorY, Y_DiffFrame] = GetErrAndMV(RefFrame_ycbcr(:,:,const.Y),CurrFrame_y);
 
+    [X, Y] = meshgrid(1:11, 1:9);
+    
+    %Display Motion Vectors
+    figure();
+    quiver(X, Y, Y_vectorX(:,:), Y_vectorY(:,:));
+    title(['Motion Vector [Frame ', num2str(index),']']);
+    
     % Do I need to care for Cb/Cr?
+    % I dont think you do because we are only dealing with the Y-component
+    % in motionestimation
+    
     % [Cb_vectorX, Cb_vectorY, Cb_error] = GetErrAndMV(RefFrame_CBSS,CurrFrame_CBSS);
     % [Cr_vectorX, Cr_vectorY, Cr_error] = GetErrAndMV(RefFrame_CRSS,CurrFrame_CRSS);
     

@@ -70,7 +70,12 @@ for index = const.RefNum+1:(const.RefNum + (const.GOPSize-1))
     GroupOfFrames{index - const.RefNum} = ycbcr2rgb(FrameTemp);
 
     %%% Display %%%
-    DisplayFrame(GroupOfFrames{index - const.RefNum});
+    error = GroupOfFrames{index - const.RefNum};
+    DisplayFrame(error);
 
     % TODO the frame is still the error frame, add ref to error 
+    
+    Image = GetReconstructedImg(uint8(Inverse_QDCT_Y) + uint8(RefFrame_ycbcr),Inverse_QDCT_Cb,Inverse_QDCT_Cr);
+    DisplayFrame(ycbcr2rgb(Image));
+    
 end

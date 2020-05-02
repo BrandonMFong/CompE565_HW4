@@ -21,13 +21,33 @@
         { "Path": "./docs" }
     ],
     "Save": [{
-            "VariableName": "RefFrame_rbg",
-            "Path": "./Outputs/Ref Image rgb Extract.jpg",
+            "VariableName": "RefFrame_ycbcr",
+            "Path": "./Outputs/Ref Image ycbcr Extract.jpg",
             "Type": "Image"
         },
         {
-            "VariableName": "RefFrame_ycbcr",
-            "Path": "./Outputs/Ref Image ycbcr Extract.jpg",
+            "VariableName": "GroupOfFrames{1}",
+            "Path": "./Outputs/Frame 2 Image.jpg",
+            "Type": "Image"
+        },
+        {
+            "VariableName": "GroupOfFrames{2}",
+            "Path": "./Outputs/Frame 3 Image.jpg",
+            "Type": "Image"
+        },
+        {
+            "VariableName": "GroupOfFrames{3}",
+            "Path": "./Outputs/Frame 4 Image.jpg",
+            "Type": "Image"
+        },
+        {
+            "VariableName": "GroupOfFrames{4}",
+            "Path": "./Outputs/Frame 5 Image.jpg",
+            "Type": "Image"
+        },
+        {
+            "VariableName": "RefFrame_rbg",
+            "Path": "./Outputs/Frame 1 Image.jpg",
             "Type": "Image"
         }
     ]

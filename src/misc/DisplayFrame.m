@@ -1,4 +1,4 @@
-function DisplayFrame(var)
+function DisplayFrame(var,Title)
     figure,imshow(var);
-    title("Frame");
+    title(Title);
 end

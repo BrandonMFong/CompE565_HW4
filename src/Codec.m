@@ -33,6 +33,7 @@ for index = const.RefNum+1:(const.RefNum + (const.GOPSize-1))
     % Do I need to care for Cb/Cr?
     % I dont think you do because we are only dealing with the Y-component
     % in motionestimation
+    % That's what I thought.  Interesting.  Make sense because we compressed the dimension by half.
     
     % [Cb_vectorX, Cb_vectorY, Cb_error] = GetErrAndMV(RefFrame_CBSS,CurrFrame_CBSS);
     % [Cr_vectorX, Cr_vectorY, Cr_error] = GetErrAndMV(RefFrame_CRSS,CurrFrame_CRSS);
@@ -66,16 +67,14 @@ for index = const.RefNum+1:(const.RefNum + (const.GOPSize-1))
     Inverse_QDCT_Cr = GetInvDCT(IQuantized_QDCT_Cr,GetVarName(IQuantized_QDCT_Cr));
      
     %%% Reconstruct predicted image %%%
-    FrameTemp = GetReconstructedImg(Inverse_QDCT_Y,Inverse_QDCT_Cb,Inverse_QDCT_Cr);
-    GroupOfFrames{index - const.RefNum} = ycbcr2rgb(FrameTemp);
+    error = ycbcr2rgb(GetReconstructedImg(Inverse_QDCT_Y,Inverse_QDCT_Cb,Inverse_QDCT_Cr));
+    Image = ycbcr2rgb(GetReconstructedImg(uint8(Inverse_QDCT_Y) + uint8(RefFrame_ycbcr),Inverse_QDCT_Cb,Inverse_QDCT_Cr));
 
     %%% Display %%%
-    error = GroupOfFrames{index - const.RefNum};
-    DisplayFrame(error);
+    DisplayFrame(error,['Error Image [Frame ', num2str(index),']']);
+    DisplayFrame(Image,['Reconstructed Image [Frame ', num2str(index),']']);
 
-    % TODO the frame is still the error frame, add ref to error 
-    
-    Image = GetReconstructedImg(uint8(Inverse_QDCT_Y) + uint8(RefFrame_ycbcr),Inverse_QDCT_Cb,Inverse_QDCT_Cr);
-    DisplayFrame(ycbcr2rgb(Image));
+    % Store Frame in array of frames
+    GroupOfFrames{index - const.RefNum} = Image;
     
 end

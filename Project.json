@@ -26,6 +26,26 @@
             "Type": "Image"
         },
         {
+            "VariableName": "GroupOfErrorFrames{1}",
+            "Path": "./Outputs/Frame 1 Error Image.jpg",
+            "Type": "Image"
+        },
+        {
+            "VariableName": "GroupOfErrorFrames{2}",
+            "Path": "./Outputs/Frame 2 Error Image.jpg",
+            "Type": "Image"
+        },
+        {
+            "VariableName": "GroupOfErrorFrames{3}",
+            "Path": "./Outputs/Frame 3 Error Image.jpg",
+            "Type": "Image"
+        },
+        {
+            "VariableName": "GroupOfErrorFrames{4}",
+            "Path": "./Outputs/Frame 4 Error Image.jpg",
+            "Type": "Image"
+        },
+        {
             "VariableName": "GroupOfFrames{1}",
             "Path": "./Outputs/Frame 2 Image.jpg",
             "Type": "Image"

@@ -8,6 +8,7 @@ VideoVar = GetVideo();
 [RefFrame_CBSS, RefFrame_CRSS] = GetCbCrSS(RefFrame_ycbcr);
 
 GroupOfFrames = cell(const.GOPSize - 1,1);
+GroupOfErrorFrames = cell(const.GOPSize - 1,1);
 
 % Get frame by frame 
 % Using a slice size of one just for simplicity
@@ -69,12 +70,14 @@ for index = const.RefNum+1:(const.RefNum + (const.GOPSize-1))
     %%% Reconstruct predicted image %%%
     error = ycbcr2rgb(GetReconstructedImg(Inverse_QDCT_Y,Inverse_QDCT_Cb,Inverse_QDCT_Cr));
     Image = ycbcr2rgb(GetReconstructedImg(uint8(Inverse_QDCT_Y) + uint8(RefFrame_ycbcr),Inverse_QDCT_Cb,Inverse_QDCT_Cr));
+    % RefFrame_ycbcr = Inverse_QDCT_Y; % Testing to see if we can reconstruct better by rewriting into refframe var --- Nope
 
     %%% Display %%%
     DisplayFrame(error,['Error Image [Frame ', num2str(index),']']);
     DisplayFrame(Image,['Reconstructed Image [Frame ', num2str(index),']']);
 
     % Store Frame in array of frames
+    GroupOfErrorFrames{index - const.RefNum} = error;
     GroupOfFrames{index - const.RefNum} = Image;
     
 end
